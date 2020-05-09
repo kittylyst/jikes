@@ -354,7 +354,8 @@ TypeSymbol* TypeSymbol::GetArrayType(Semantic* sem, unsigned dims)
         // All arrays implement the interfaces java.io.Serializable and
         // java.io.Cloneable
         //
-        type -> AddInterface(sem -> control.Serializable());
+        if (sem -> control.serializationSupport)
+            type -> AddInterface(sem -> control.Serializable());
         type -> AddInterface(sem -> control.Cloneable());
         type -> base_type = this;
         type -> num_dimensions = num;

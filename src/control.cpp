@@ -14,6 +14,7 @@ namespace Jikes { // Open namespace Jikes block
 Control::Control(char** arguments, Option& option_)
     : return_code(0)
     , option(option_)
+    , serializationSupport(option_.source > JikesOption::SDK1_0)
     , dot_classpath_index(0)
     , system_table(NULL)
     , system_semantic(NULL)

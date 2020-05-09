@@ -33,6 +33,7 @@ public:
     enum ReleaseLevel
     {
         UNKNOWN,
+        SDK1_0,
         SDK1_1,
         SDK1_2,
         SDK1_3,

@@ -33,6 +33,8 @@ public:
     SymbolTable classpath_table;
     SymbolTable external_table;
 
+    bool serializationSupport;
+
     unsigned dot_classpath_index;
     Tuple<PathSymbol*> classpath;
     Tuple<wchar_t*> bad_dirnames;
