@@ -1134,6 +1134,8 @@ void Semantic::ProcessClassBodyForEffectiveJavaChecks(AstClassBody* class_body)
 
 void Semantic::CheckForSerializationMistakes(AstClassBody* class_body)
 {
+    if (!control.serializationSupport)
+        return;
     TypeSymbol* this_type = ThisType();
 
     if (! this_type -> Implements(control.Serializable()))
@@ -2142,7 +2144,8 @@ void Semantic::CheckFieldDeclaration(AstFieldDeclaration* field_declaration,
                        name, name_symbol -> Name());
     }
 
-    if (name_symbol == control.serialVersionUID_name_symbol)
+    if (control.serializationSupport &&
+        name_symbol == control.serialVersionUID_name_symbol)
     {
         //
         // Warn about serialVersionUID mistakes.

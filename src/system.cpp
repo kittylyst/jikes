@@ -1325,6 +1325,14 @@ void Control::ProcessSystemInformation()
 TypeSymbol* Control::ProcessSystemType(PackageSymbol* package,
                                        const char* name)
 {
+    if (!serializationSupport)
+    {
+        if (package == io_package &&
+            0 == strcmp(name, "Serializable"))
+        {
+            return NULL;
+        }
+    }
     NameSymbol* name_symbol = FindOrInsertSystemName(name);
     TypeSymbol* type = package -> FindTypeSymbol(name_symbol);
 

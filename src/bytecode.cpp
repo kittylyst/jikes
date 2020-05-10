@@ -6208,6 +6208,10 @@ ByteCode::ByteCode(TypeSymbol* type)
 
     switch (control.option.target)
     {
+    case JikesOption::SDK1_0:
+        major_version = 45;
+        minor_version = 3;
+        break;
     case JikesOption::SDK1_1:
         major_version = 45;
         minor_version = 3;

@@ -301,10 +301,13 @@ class ByteCode : public ClassFile, public StringConstant, public Operators
     //
     bool IsMultiDimensionalArray(TypeSymbol* p)
     {
-        return p -> num_dimensions > 1 ||
+        bool isMulti = p -> num_dimensions > 1 ||
             p -> base_type == control.Object() ||
-            p -> base_type == control.Cloneable() ||
-            p -> base_type == control.Serializable();
+            p -> base_type == control.Cloneable();
+        if (control.serializationSupport) {
+            isMulti |= p -> base_type == control.Serializable();
+        }
+        return isMulti;
     }
 
 

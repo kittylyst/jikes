@@ -166,7 +166,7 @@ const wchar_t* OptionError::GetErrorMessage()
     case INVALID_SOURCE_ARGUMENT:
         if (ENABLE_SOURCE_15)
         {
-            s << "\"-source\" only recognizes Java releases 1.3 (JLS 2 "
+            s << "\"-source\" only recognizes Java releases 1.0, 1.3 (JLS 2 "
               << "features), 1.4 (assert statement), and 1.5 (partial "
               << "support beta, see NEWS for supported features).";
             break;
@@ -175,7 +175,7 @@ const wchar_t* OptionError::GetErrorMessage()
           << "and 1.4 (assert statement).";
         break;
     case INVALID_TARGET_ARGUMENT:
-        s << "\"-target\" only recognizes Java releases 1.1, 1.2, 1.3, 1.4, "
+        s << "\"-target\" only recognizes Java releases 1.0 1.1, 1.2, 1.3, 1.4, "
           << "and 1.4.2.";
         break;
     case INVALID_K_OPTION:
@@ -595,7 +595,9 @@ Option::Option(ArgumentExpander& arguments,
                 }
                 // See below for setting the default.
                 i++;
-                if (! strcmp(arguments.argv[i], "1.3"))
+                if (! strcmp(arguments.argv[i], "1.0"))
+                    source = SDK1_0;
+                else if (! strcmp(arguments.argv[i], "1.3"))
                     source = SDK1_3;
                 else if (! strcmp(arguments.argv[i], "1.4"))
                     source = SDK1_4;
@@ -638,7 +640,9 @@ Option::Option(ArgumentExpander& arguments,
                 }
                 // See below for setting the default.
                 i++;
-                if (! strcmp(arguments.argv[i], "1.1"))
+                if (! strcmp(arguments.argv[i], "1.0"))
+                    target = SDK1_0;
+                else if (! strcmp(arguments.argv[i], "1.1"))
                     target = SDK1_1;
                 else if (! strcmp(arguments.argv[i], "1.2"))
                     target = SDK1_2;
@@ -946,6 +950,9 @@ Option::Option(ArgumentExpander& arguments,
     {
         switch (target)
         {
+        case SDK1_0:
+            source = SDK1_0;
+            break;
         case SDK1_1:
         case SDK1_2:
         case SDK1_3:
